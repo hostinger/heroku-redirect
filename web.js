@@ -2,7 +2,7 @@ var express = require('express');
 var query = require('querystring');
 var url = require('url');
 
-var app = express.createServer(express.logger());
+var app = express();
 
 app.get('*', function (request, response) {
 
