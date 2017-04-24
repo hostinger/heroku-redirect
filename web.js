@@ -8,7 +8,7 @@ app.get('*', function (request, response) {
 
     var id = parseInt(request.url.substr(1).split('.')[0]);
 
-    if (Number.isInteger(id)) {
+    if (id) {
         var queryParams = {
             rc: id
         };
