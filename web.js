@@ -16,10 +16,14 @@ app.get('*', function (request, response) {
         if (process.env.UTM_SOURCE) {
             queryParams.utm_source = process.env.UTM_SOURCE;
         } else {
-            var referringUrl = url.parse(request.get('Referrer'));
+            var referringUrl = request.get('Referrer');
 
-            if (referringUrl.host) {
-                queryParams.utm_source = referringUrl.host;
+            if (referringUrl) {
+                referringUrl = url.parse(referringUrl);
+
+                if (referringUrl.host) {
+                    queryParams.utm_source = referringUrl.host;
+                }
             }
         }
 
