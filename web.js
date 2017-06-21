@@ -8,6 +8,9 @@ app.get('*', function (request, response) {
 
     var id = parseInt(request.url.substr(1).split('.')[0]);
 
+    var languageCode = request.headers.host.split('.')[0].toUpperCase();
+    var baseUrl = process.env['NEW_BASE_URL_' + languageCode] || process.env['NEW_BASE_URL'];
+
     if (id) {
         var queryParams = {
             rc: id
@@ -35,12 +38,12 @@ app.get('*', function (request, response) {
             queryParams.utm_medium = process.env.UTM_MEDIUM;
         }
 
-        response.redirect(301, process.env.NEW_BASE_URL + '?' + query.stringify(queryParams));
+        response.redirect(301, baseUrl + '?' + query.stringify(queryParams));
 
         return;
     }
 
-    response.redirect(process.env.NEW_BASE_URL + request.url)
+    response.redirect(baseUrl + request.url)
 });
 
 var port = process.env.PORT || 5000;
