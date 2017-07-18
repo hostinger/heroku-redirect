@@ -43,7 +43,7 @@ app.get('*', function (request, response) {
         return;
     }
 
-    response.redirect(baseUrl + request.url)
+    response.redirect(301, baseUrl + request.url)
 });
 
 var port = process.env.PORT || 5000;
