@@ -5,7 +5,7 @@ var got = require('got');
 
 var app = express();
 
-function trackEvent (ga_tracking_id) {
+function trackEvent (ga_tracking_id, category, action, label, value) {
   const data = {
     // Tracking ID / Property ID.
     tid: ga_tracking_id,
@@ -30,6 +30,11 @@ app.get('*', function (request, response, next) {
         var queryParams = {
             rc: id
         };
+        
+        // Track GA Event
+        trackEvent(
+            gaTrackingId
+        ).catch(next);
 
         if (process.env.UTM_SOURCE) {
             queryParams.utm_source = process.env.UTM_SOURCE;
@@ -53,14 +58,7 @@ app.get('*', function (request, response, next) {
             queryParams.utm_medium = process.env.UTM_MEDIUM;
         }
 
-        // Track GA Event
-        trackEvent(
-            gaTrackingId
-        ).then(function() {
-            response.redirect(301, baseUrl + '?' + query.stringify(queryParams));
-        }).catch(function() {
-            response.redirect(301, baseUrl + '?' + query.stringify(queryParams));
-        });
+        response.redirect(301, baseUrl + '?' + query.stringify(queryParams));
 
         return;
     }
