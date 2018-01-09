@@ -18,7 +18,7 @@ function trackEvent (ga_tracking_id, category, action, label, value) {
   });
 }
 
-app.get('*', function (request, response) {
+app.get('*', function (request, response, next) {
 
     var id = parseInt(request.url.substr(1).split('.')[0]);
 
