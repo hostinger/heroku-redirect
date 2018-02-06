@@ -37,6 +37,10 @@ app.get('*', function (request, response) {
         if (process.env.UTM_MEDIUM) {
             queryParams.utm_medium = process.env.UTM_MEDIUM;
         }
+        
+        if (process.env.UTM_SOURCE) {
+            queryParams.utm_source = process.env.UTM_SOURCE;
+        }
 
         response.redirect(301, baseUrl + '?' + query.stringify(queryParams));
 
